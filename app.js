@@ -6,9 +6,8 @@ var app = express();
 app.get("/:time", function(req, res){
     "use strict";
     let query = req.params.time;
-    console.log(query);
-    console.log(Number.isInteger(query));
-    if(query > moment()){
+
+    if(query > moment() || !moment(query).isValid()){
         timeObj.unix = null;
         timeObj.natural = null;
         res.send(timeObj);
@@ -17,9 +16,10 @@ app.get("/:time", function(req, res){
     timeObj.natural = moment(parseInt(query, 10)).format("MMMM D, YYYY");
     res.send(timeObj);
     } else {
-        res.send("String");
+        timeObj.natural = moment(query).format("MMMM D, YYYY");
+        timeObj.unix = parseInt(moment(query).format("X"), 10);
+        res.send(timeObj);
     }
-   // res.send(moment());
 });
 
 app.listen(8080, function(){
