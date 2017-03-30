@@ -1,6 +1,7 @@
 var express = require("express");
 var moment = require("moment");
 var timeObj = { unix: "", natural: "" };
+var port = process.env.PORT || 8080;
 var app = express();
 
 app.get("/", function(req, res){
@@ -26,6 +27,6 @@ app.get("/:time", function(req, res){
     }
 });
 
-app.listen(8080, function(){
+app.listen(port, function(){
     console.log("Service running");
 });
