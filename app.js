@@ -3,6 +3,10 @@ var moment = require("moment");
 var timeObj = { unix: "", natural: "" };
 var app = express();
 
+app.get("/", function(req, res){
+    res.send("Please include an Unix time or a proper Date");
+})
+
 app.get("/:time", function(req, res){
     "use strict";
     let query = req.params.time;
