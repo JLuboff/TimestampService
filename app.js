@@ -5,8 +5,8 @@ var port = process.env.PORT || 8080;
 var app = express();
 
 app.get("/", function(req, res){
-    res.send("Please include an Unix time or a proper Date");
-})
+    res.send("Please include an Unix time or a proper Date at the end of the URL. For example: /March 30 2017");
+});
 
 app.get("/:time", function(req, res){
     "use strict";
