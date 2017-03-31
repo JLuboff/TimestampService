@@ -5,47 +5,31 @@ var port = process.env.PORT || 8080;
 var app = express();
 
 app.get("/", function(req, res){
-    res.send("Please include an Unix time or a proper Date at the end of the URL. For example: /March 30 2017");
+  res.send("Please include an Unix time or a proper Date at the end of the URL. For example: /March 30 2017");
 });
 
 app.get("/:time", function(req, res){
-    "use strict";
-    let query = req.params.time;
+  "use strict";
+  let query = req.params.time;
 
-    if(Number.isInteger(Number(query))){
-        if(Number(query) > parseInt(moment().format("X"), 10)){
-        res.send(timeObj);
-        } else {
-        query = Number(query);
-        timeObj.unix = query;
-    timeObj.natural = moment.unix(query).format("MMMM D, YYYY");
-    res.send(timeObj);
-    }
-    } else if(!moment(query).isValid()){
-        res.send(timeObj);
+  if(Number.isInteger(Number(query))){
+    if(Number(query) > parseInt(moment().format("X"), 10)){
+      res.send(timeObj);
     } else {
-        console.log("Else");
-        timeObj.natural = moment(query).format("MMMM D, YYYY");
-        timeObj.unix = parseInt(moment(query).format("X"), 10);
-        res.send(timeObj);
+      query = Number(query);
+      timeObj.unix = query;
+      timeObj.natural = moment.unix(query).format("MMMM D, YYYY");
+      res.send(timeObj);
     }
+  } else if(!moment(query).isValid()){
+    res.send(timeObj);
+  } else {
+    timeObj.natural = moment(query).format("MMMM D, YYYY");
+    timeObj.unix = parseInt(moment(query).format("X"), 10);
+    res.send(timeObj);
+  }
 });
 
 app.listen(port, function(){
-    console.log("Service running");
+  console.log("Service running");
 });
-
-  //  console.log(moment(query).isValid());
-//console.log(Number(query) > parseInt(moment().format("X"), 10));
-//console.log(Number.isInteger(parseInt(query, 10)));
-   /* if(Number(query) > parseInt(moment().format("X"), 10) || !moment(query).isValid()){
-        console.log("First if");
-        timeObj.unix = null;
-        timeObj.natural = null;
-        res.send(timeObj); 
-    } else if (Number.isInteger(parseInt(query, 10))){
-        console.log("Else if");
-    timeObj.unix = Number(query);
-    timeObj.natural = moment(parseInt(query, 10)).format("MMMM D, YYYY");
-    res.send(timeObj);
-    } */
